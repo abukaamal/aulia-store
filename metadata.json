@@ -1,0 +1,6 @@
+{
+  "name": "Aulia Store",
+  "description": "Aulia Store - Toko Online dengan integrasi Midtrans Snap dan Google Apps Script",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
