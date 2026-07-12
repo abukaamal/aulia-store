@@ -331,7 +331,8 @@ export default function App() {
         id: product.id,
         name: product.name,
         price: product.price,
-        quantity: 1
+        quantity: 1,
+        imageUrl: product.imageUrl
       }]);
     }
 
@@ -700,7 +701,12 @@ export default function App() {
               ) : (
                 carousels.map((slide, idx) => (
                   <div className="carousel-slide" key={idx}>
+                    <div 
+                      className="carousel-slide-bg" 
+                      style={{ backgroundImage: `url(${slide.imageUrl})` }}
+                    ></div>
                     <img 
+                      className="carousel-slide-img"
                       src={slide.imageUrl} 
                       alt={slide.title || 'Slide'} 
                       loading="lazy" 
@@ -1020,6 +1026,14 @@ export default function App() {
               ) : (
                 cart.map((item) => (
                   <div className="cart-item" key={item.id}>
+                    <img 
+                      src={item.imageUrl || 'https://via.placeholder.com/150'} 
+                      alt={item.name} 
+                      className="cart-item-thumbnail"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150';
+                      }}
+                    />
                     <div className="cart-item-info">
                       <div className="cart-item-name">
                         <i className="fas fa-box" aria-hidden="true"></i> {item.name}

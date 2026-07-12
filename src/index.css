@@ -11,6 +11,15 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
 }
 
 /* ==================== LOADING SCREEN ==================== */
@@ -360,6 +369,8 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   padding: 90px 2rem 2rem;
+  width: 100%;
+  flex: 1 0 auto;
 }
 
 .page {
@@ -401,7 +412,7 @@ body {
   background: #1a1a2e;
 }
 
-/* CAROUSEL SLIDES - Aspect Ratio 16:9 */
+/* CAROUSEL SLIDES - Responsive Height */
 .carousel-slides {
   display: flex;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -411,21 +422,61 @@ body {
 .carousel-slide {
   min-width: 100%;
   position: relative;
-  aspect-ratio: 16 / 9;
+  height: 280px; /* Base mobile height, prevents shrinking too much */
   background: #1a1a2e;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.carousel-slide img {
+@media (min-width: 480px) {
+  .carousel-slide {
+    height: 340px;
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-slide {
+    height: 440px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-slide {
+    height: 520px;
+  }
+}
+
+/* Blurred background image */
+.carousel-slide-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px) brightness(0.65);
+  transform: scale(1.15); /* prevents white borders from blur */
+  z-index: 1;
+}
+
+/* Clear foreground image */
+.carousel-slide-img {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
+  z-index: 2;
   transition: transform 0.3s ease;
 }
 
-.carousel-slide:hover img {
-  transform: scale(1.02);
+.carousel-slide:hover .carousel-slide-img {
+  transform: scale(1.03);
 }
 
 /* Carousel Caption */
@@ -439,6 +490,7 @@ body {
   padding: 2.5rem 2rem 2rem;
   text-align: center;
   pointer-events: none;
+  z-index: 5;
 }
 
 .carousel-caption h3 {
@@ -996,6 +1048,17 @@ body {
   border-bottom: 1px solid #eee;
 }
 
+.cart-item-thumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 1px solid #f0f0f0;
+  flex-shrink: 0;
+  background: #f7f9fa;
+}
+
 .cart-item-info {
   flex: 1;
 }
@@ -1134,11 +1197,7 @@ body {
 }
 
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 1024px) {
-  .carousel-slide {
-    aspect-ratio: 16 / 10;
-  }
-}
+/* Removed old aspect-ratio override to keep beautiful responsive heights */
 
 @media (max-width: 768px) {
   .hamburger {
@@ -1188,10 +1247,6 @@ body {
     font-size: 1.2rem;
     flex: 1;
     text-align: center;
-  }
-
-  .carousel-slide {
-    aspect-ratio: 16 / 9;
   }
 
   .carousel-caption {
@@ -1245,6 +1300,11 @@ body {
     padding: 80px 1rem 1rem;
   }
 
+  .carousel-container {
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
   }
@@ -1277,10 +1337,6 @@ body {
 }
 
 @media (max-width: 480px) {
-  .carousel-slide {
-    aspect-ratio: 16 / 10;
-  }
-
   .carousel-btn {
     width: 32px;
     height: 32px;
@@ -1324,15 +1380,9 @@ body {
   }
 }
 
-@media (max-width: 360px) {
-  .carousel-slide {
-    aspect-ratio: 4 / 3;
-  }
-}
-
 @media (max-height: 500px) and (orientation: landscape) {
   .carousel-slide {
-    aspect-ratio: 16 / 7;
+    height: 220px;
   }
 
   .carousel-caption {
@@ -1377,7 +1427,7 @@ textarea:focus-visible {
 /* ==================== SKELETON LOADING FOR CAROUSEL ==================== */
 .carousel-skeleton {
   width: 100%;
-  aspect-ratio: 16/9;
+  height: 100%;
   background: linear-gradient(135deg, #2a2a4a, #1a1a2e);
   display: flex;
   align-items: center;
