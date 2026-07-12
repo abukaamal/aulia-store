@@ -422,7 +422,7 @@ body {
 .carousel-slide {
   min-width: 100%;
   position: relative;
-  height: 280px; /* Base mobile height, prevents shrinking too much */
+  height: clamp(280px, 45vh, 360px); /* Responsive height, dynamically adjusts to device height */
   background: #1a1a2e;
   overflow: hidden;
   display: flex;
@@ -1301,8 +1301,11 @@ body {
   }
 
   .carousel-container {
-    margin-bottom: 1.5rem;
-    border-radius: 12px;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+    border-radius: 0;
+    margin-bottom: 2rem;
   }
 
   .about-grid {
@@ -1447,5 +1450,84 @@ textarea:focus-visible {
   }
   50% {
     opacity: 1;
+  }
+}
+
+/* ==================== VIEW ALL BUTTON & WHY CHOOSE US GRID ==================== */
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.view-all-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.why-choose-us-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.why-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.why-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.2rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.why-card h3 {
+  font-size: 1.15rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.why-card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .why-choose-us-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .why-card {
+    padding: 1.5rem 1rem;
   }
 }
