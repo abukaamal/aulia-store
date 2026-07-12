@@ -194,7 +194,7 @@ body {
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -202,7 +202,7 @@ body {
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 .nav-menu {
